@@ -1,0 +1,4 @@
+To generate input test files (16 tests by default):
+> python ./generate.py
+To test a program named 'sort':
+> python ./run.py ./sort 16

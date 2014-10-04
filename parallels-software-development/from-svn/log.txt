@@ -1,0 +1,11 @@
+Info: Logger has been initialized.
+Info: File './input.csv' has been opened for reading.
+Info: Storage for input data has been opened.
+Info: File './input.csv' has been closed.
+Info: Storage for output data has been opened.
+Info: Integers has been sorted.
+Info: Storage for input data has been closed.
+Info: File './output.csv' has been opened for writing.
+Info: Storage for output data has been closed.
+Info: File './output.csv' has been closed.
+Info: Finalizing logger...
