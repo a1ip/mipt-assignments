@@ -1,0 +1,6 @@
+Start it like:
+  make run ARGS="X"
+where X is an integer.
+
+If X == 0 merge sort will be done in one thread.
+If X > 0 merge sort will be done in more than one thread (2 ** (X + 1) - 1 to be exact), but only X threads will work simultaneously.
