@@ -1,7 +1,7 @@
 1.
 
 let turtle-size size
-let patch-lable [plabel] of patch-here
+let patch-label [plabel] of patch-here
 let turtle-min-size [size] of min-one-of turtles [size]
 let turtle max-size [size] of max-one-of turtles [size]
 let neightbor-color [color] of my-nearest-neighbor
@@ -13,6 +13,6 @@ let wealth-deviation standard-deviation [wealth] of turtles
 
 2. This code seems to be working if the patch of the current turtle is added after.
 
-3-4. Sensing radius of 2 is enough for investors find global maxima.
+4. Sensing radius of 2 is enough for investors find global maxima.
 
 5. Investors' wealth slightly increases as the number of links grows. The reason is the more links each inverstor has, the more the chance to find better patch.

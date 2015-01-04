@@ -13,7 +13,14 @@ globals
    ; Investor parameters
    decision-time-horizon
    
-   sensing-radius
+   ; Count number of failures
+   num-investor-failures
+   
+   R
+   V
+   alpha
+   beta
+   failure-probability-estimation
   ]
   
 patches-own 
@@ -38,14 +45,18 @@ to setup
 
   set num-investors 100
 
-  set patch-min-profit    1000
+  set patch-min-profit    -5000
   set patch-max-profit    10000
   set patch-min-risk  0.01
   set patch-max-risk  0.1
 
   set decision-time-horizon 5
+  set num-investor-failures 0
   
-  set sensing-radius 3
+  ; Bayesian updating trait for estimating failure risk using Beta-distribution
+  set R 0.055
+  set V 0.0007
+  set alpha (R ^ 2 - R ^ 3 - R * V) / V
 
  ; Initialize patch profit and risk characteristics
   ask patches
@@ -68,7 +79,6 @@ to setup
   [
    move-to one-of patches with [not any? turtles-here]
    set wealth 0.0
-   create-links-to n-of number-of-links other turtles
   ]
   
  ; Open an output file for testing and analysis
@@ -86,21 +96,7 @@ to setup
    
  ; Finally, write output for initial state of model
  output
- 
- ask turtle 0 [
-   print size
-   print [plabel] of patch-here
-   let my-nearest-neighbor min-one-of (other turtles) [distance myself]
-   print [color] of my-nearest-neighbor
-   print [end2] of one-of my-out-links
-   print out-link-neighbors
-   print count turtles-on patch (pxcor + 1) (pycor + 1)
- ]
- 
- print [size] of min-one-of turtles [size]
- print [size] of max-one-of turtles [size]
- print [wealth] of turtles with [color = 15]
- print standard-deviation [wealth] of turtles
+
 end
 
 to go
@@ -120,20 +116,18 @@ end
 to reposition
 
   ; First identify potential neighbor destination patches
-  ; let potential-destinations neighbors with [not any? turtles-here]
-  let potential-destinations patches in-radius
-      sensing-radius with [not any? other turtles-here]
+  let potential-destinations neighbors with [not any? turtles-here]
   
   ; Now add our current patch to the potential destinations
   set potential-destinations (patch-set potential-destinations patch-here)
   
-  ; And for the network version, add neighbors of turtles we're linked to
-  ;set potential-destinations (patch-set potential-destinations
-  ;   ([neighbors with [not any? turtles-here]] of out-link-neighbors) )
-  ; show count potential-destinations
-  
   ; Identify the best one of the destinations
-  let best-patch max-one-of potential-destinations [utility-for myself]
+  ; Here, choose which of 3 alternative objective functions to use;
+  ; If you are testing the code, remember to change which utility function is
+  ; used when 'current-utility' is updated in 'do-accounting'
+  ; let best-patch max-one-of potential-destinations [utility-for myself]
+  ; let best-patch max-one-of potential-destinations [max-profit-utility-for myself]
+  let best-patch max-one-of potential-destinations [min-risk-utility-for myself]
   
   ; Now move there
   move-to best-patch
@@ -145,11 +139,27 @@ to do-accounting
   ; First, add this year's profits
   set wealth (wealth + profit)
   
+  ; Now account for failure via negative profits: if wealth is negative, it becomes zero
+  ifelse wealth < 0 
+  [ 
+    set wealth 0
+    set num-investor-failures num-investor-failures + 1
+    set alpha alpha + 1
+  ]
+  [ set beta beta + 1 ]
+  
   ; Now see if the investment failed
-  if random-float 1.0 < annual-risk [set wealth 0]
+  ifelse random-float 1.0 < annual-risk
+  [ 
+    set wealth 0
+    set num-investor-failures num-investor-failures + 1
+    set alpha alpha + 1
+  ]
+  [ set beta beta + 1 ]
   
   ; For output, update the utility of the investor
-  set current-utility utility-for self
+  set current-utility min-risk-utility-for self
+  set failure-probability-estimation alpha / (alpha + beta)
 
 end
 
@@ -161,10 +171,54 @@ to-report utility-for [a-turtle]
  let turtles-wealth [wealth] of a-turtle
  let utility turtles-wealth + (profit * decision-time-horizon)
  
- ; Then factor in risk of failure over time horizon
- set utility utility * ((1 - annual-risk) ^ decision-time-horizon)
+ ; Set utility to zero if wealth is expected to become negative,
+ ; and in that case bypass the risk calculation
+ ifelse utility <= 0
+ [
+   report 0.0
+ ]
+ [
+   ; Then factor in risk of failure over time horizon
+   set utility utility * ((1 - annual-risk) ^ decision-time-horizon)
  
- report utility
+   report utility
+ ]
+
+end
+
+
+to-report max-profit-utility-for [a-turtle]
+ ; Edit this to change how turtles evaluate alternative patches
+
+ ; For the 'maximize profit' utility function, utility is simply the profit
+ 
+   report profit
+
+end
+
+
+to-report min-risk-utility-for [a-turtle]
+ ; Edit this to change how turtles evaluate alternative patches
+
+ ; For 'minimize risk' utility function, first calc. expected
+ ; investor wealth over the time horizon
+ let turtles-wealth [wealth] of a-turtle
+ let utility turtles-wealth + (profit * decision-time-horizon)
+ 
+ ; Set utility to zero if wealth is expected to become negative,
+ ; and in that case bypass the risk calculation
+ ifelse utility <= 0
+ [
+   report 0.0
+ ]
+ [
+   ; Then factor in risk of failure over time horizon
+   ; Because we no longer care about profit and only want to
+   ; minimize risk, set utility to just the risk of failure over the time horizon
+   set utility (1 - annual-risk) ^ decision-time-horizon
+ 
+   report utility
+ ]
 
 end
 
@@ -195,6 +249,8 @@ to output
       file-print current-utility
      ]
    file-close
+   
+   output-print (word "Number of failures: " num-investor-failures)
 
 end
 @#$#@#$#@
@@ -348,20 +404,12 @@ false
 PENS
 "default" 1.0 0 -16777216 true "" ""
 
-SLIDER
-10
-50
-182
-83
-number-of-links
-number-of-links
-0
-10
-5
-1
-1
-NIL
-HORIZONTAL
+OUTPUT
+242
+319
+437
+373
+11
 
 @#$#@#$#@
 ## THE BUSINESS INVESTOR MODEL
@@ -369,9 +417,11 @@ HORIZONTAL
 
 # MODEL DESCRIPTION (ODD)
 
-This model was produced by S. Railsback and V. Grimm for Chapter 10 of the book Agent-Based and Individual-Based Modeling (2012).
+This model was produced by S. Railsback and V. Grimm for Chapters 11 of the book Agent-Based and Individual-Based Modeling (2012).
 
-This version of the model includes sensing through a network via links, described in Section 10.4.3. The "neighbor" patches that investors consider as destinations in the repositioning action include the vacant patches adjacent to their current one _and_ the patches surrounding the five turtles to which they have a link. 
+This version of the model includes modifications described in Section 11.5, with negative profits and failure via wealth declining to zero. This code also includes the alternative objective functions described in Section 11.5. Choose among the three alternative objective functions by changing the comments in procedure `reposition` (and, to get the correct test output, in `do-accounting`).
+
+These changes are not included in the following model description.
 
 # PURPOSE
 
@@ -731,14 +781,6 @@ NetLogo 5.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
-<experiments>
-  <experiment name="radius" repetitions="1" runMetricsEveryStep="true">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>mean [wealth] of turtles</metric>
-    <steppedValueSet variable="sensing-radius" first="0" step="1" last="5"/>
-  </experiment>
-</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default

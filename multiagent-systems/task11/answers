@@ -1,0 +1,26 @@
+1.
+
+set blue-patches patches with [ pcolor = blue ]
+set blue-scale-patches patches with [ pcolor = scale-color blue 0 0 50]
+set patches-with-at-least-one-turtle patches with [ count turtles-here > 0 ]
+set patches-without-turtles patches with [ count turtles-here = 0 ]
+set patches-with-exactly-one-turtle patches with [ count turtles-here = 1 ]
+set turtles-in-upper-right-quadrant turtles with [ pxcor >= 0 and pycor >= 0 ]
+
+In turle context:
+
+set neighbor-turtles turtles in-radius 3
+set neighbor-other-turtles other turtles in-radius 3
+set undirected-links-turtles link-neighbors
+set directed-links-turtles out-link-neighbors
+set neighbors-with-links out-link-neighbors with [ member? myself neighbors ]
+
+In patch context:
+
+set turtles-within-radius-3 turtles in-radius 3
+
+2. The average investor wealth is almost twice less.
+
+3. When the threshold varies from zero to 0.2 the mean wealth is high. Turles are moving pretty much randomly.
+
+4. Min-risk-utility-for looks different. Turtles are trying to minimize risk rather than to maximize profit.
