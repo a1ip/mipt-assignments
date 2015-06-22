@@ -1,1 +1,11 @@
-nameko run services
+# FYI
+
+I used docker-compose instead of blockade because I haven't managed to make the latter work.
+
+# Requirements
+
+sudo pip install -U docker-compose
+
+# Running
+
+sudo docker-compose up

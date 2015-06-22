@@ -1,0 +1,33 @@
+rabbitmq:
+  image: rabbitmq
+
+da:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictServiceA
+
+db:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictServiceB
+
+dc:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictServiceC
+
+putter:
+  build: ./putter
+  volumes:
+   - ./putter:/code
+  links:
+   - rabbitmq
