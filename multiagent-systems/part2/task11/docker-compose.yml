@@ -1,0 +1,74 @@
+
+rabbitmq:
+  image: rabbitmq
+
+putter:
+  build: ./putter
+  volumes:
+   - ./putter:/code
+  links:
+   - rabbitmq
+
+d0:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService0
+
+d1:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService1
+
+d2:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService2
+
+d3:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService3
+
+d4:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService4
+
+d5:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService5
+
+d6:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService6
+
+d7:
+  build: ./dict
+  volumes:
+   - ./dict:/code
+  links:
+   - rabbitmq
+  command: ./run.sh dict:DictService7

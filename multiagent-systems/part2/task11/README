@@ -1,0 +1,16 @@
+# Info
+
+Исходник были взяты из задачи 10 и модицированы с добавлением поддержки произвольного количества сервисов.
+
+Измеренные данные находятся в data.txt
+
+Соответствующие им графики в *.png
+
+# Requirements
+
+sudo pip install -U docker-compose
+
+# Running
+
+./make.py NUMBER_OF_SERVICES PREPARE_TIMEOUT PUT_TIMEOUT
+sudo docker-compose up

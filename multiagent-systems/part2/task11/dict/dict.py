@@ -1,11 +1,16 @@
+import json
+import subprocess
+import time
+
 from nameko.rpc import rpc, RpcProxy
 from eventlet.timeout import with_timeout
 from eventlet import sleep
 
-import subprocess
+with open('params.json') as f:
+  params = json.loads(f.read())
 
-TIMEOUT = 0.5
-SERVICES = 3
+TIMEOUT = params['timeout']
+SERVICES = params['services']
 
 def echo(s):
   subprocess.call(['echo', s])
@@ -29,7 +34,7 @@ class DictService(object):
 
   @rpc
   def put(self, key, value):
-    echo('Put {0}: {1}'.format(key, value))
+    echo('put [{0}: {1}]'.format(key, value))
     tid = self.unique_id()
 
     other_services = map(lambda x: self.__dict__['s' + str(x)], range(SERVICES - 1))
@@ -37,12 +42,17 @@ class DictService(object):
     replies = []
     for service in other_services:
       reply = service.prepare.async(tid, key, value)
+      assert reply != None
       replies.append(reply)
 
     get_all_results = lambda replies: map(lambda x: x.result(), replies)
+#    t1 = time.time()
     rvs = with_timeout(TIMEOUT, get_all_results, replies, timeout_value=None)
+#    t2 = time.time()
+#    echo('! ' + str(t2 - t1))
 
-    if None in rvs:
+    if rvs == None:
+      echo('Timeout!')
       for service in other_services:
         rv = service.abort(tid)
         assert rv == True
@@ -74,7 +84,7 @@ class DictService(object):
 
   @rpc
   def get(self, key):
-    echo('Get {0}'.format(key))
+    echo('get [{0}]'.format(key))
     return self.storage.get(key)
 
 def construct_service_class(index):
