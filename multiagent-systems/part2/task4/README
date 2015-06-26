@@ -1,0 +1,15 @@
+3. Был осуществлен поиск набора параметров при котором достигается минимум среднего значения шагов. Минимум искался в следующих интервалах:
+
+["local-search-angle" [175 1 185]]
+["global-search-angle" [15 1 25]]
+["max-search-time" [15 1 25]]
+
+Данные, полученные с помощью эксперимента в behavior space находятся в result.csv
+
+Минимальное значение и соответствующие параметры:
+
+$ ./process.py 
+minimum-average-time: 875.98
+local-search-angle: 180
+global-search-angle: 15
+max-search-time: 20
