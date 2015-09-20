@@ -1,0 +1,22 @@
+$ gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=ex18-72dpi.png ex18.gs 
+...
+
+$ gs -sDEVICE=jpeg -sOutputFile=ex18.jpg ex18.gs
+...
+
+$ ls -l
+total 1348
+-rw-r----- 1 X X 478464 Sep 22 12:41 ex16-1200dpi.png
+-rw-r----- 1 X X  42726 Sep 22 12:41 ex16-300dpi.png
+-rw-r----- 1 X X 134309 Sep 22 12:41 ex16-600dpi.png
+-rw-r----- 1 X X   7172 Sep 22 12:40 ex16-72dpi.png
+-rwxr-x--- 1 X X    306 Sep 22 12:40 ex16.gs
+-rw-r----- 1 X X  16636 Sep 22 12:43 ex16.jpg
+-rw-r----- 1 X X 469251 Sep 22 12:42 ex18-1200dpi.png
+-rw-r----- 1 X X  41574 Sep 22 12:42 ex18-300dpi.png
+-rw-r----- 1 X X 132535 Sep 22 12:42 ex18-600dpi.png
+-rw-r----- 1 X X   7023 Sep 22 12:42 ex18-72dpi.png
+-rwxr-x--- 1 X X    662 Sep 22 12:38 ex18.gs
+-rw-r----- 1 X X  16199 Sep 22 12:44 ex18.jpg
+-rwxr-x--- 1 X X     37 Sep 20 18:43 ex9.gs
+-rw-r----- 1 X X    134 Sep 22 12:45 NOTE
