@@ -13,3 +13,9 @@ $ ls -l
 -rw-r----- 1 X X  132535 Sep 22 12:42 ex18-600dpi.png
 -rw-r----- 1 X X   16199 Sep 23 18:19 ex18-72dpi.jpg
 -rw-r----- 1 X X    7023 Sep 22 12:42 ex18-72dpi.png
+
+As can be seen, PNG has much better compression ratio than JPEG.
+
+This is not surprising, since when enconding a mostly single colored PNG
+image after filtering the resulting data will mostly consist of the same byte
+repeating over and over, which is really good for the following compression.
