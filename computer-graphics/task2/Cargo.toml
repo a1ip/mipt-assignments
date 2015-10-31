@@ -1,0 +1,12 @@
+[package]
+name = "convert"
+version = "0.1.0"
+authors = ["Andrey Konovalov <adech.fo@gmail.com>"]
+
+[[bin]]
+name = "convert"
+path = "main.rs"
+
+[dependencies]
+image = "*"
+rand = "*"
