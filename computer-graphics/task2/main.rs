@@ -79,9 +79,9 @@ fn image_ordered_dither(img: &mut image::DynamicImage) {
 
 fn value_apply_threshold(value: i32, threshold: i32) -> (u8, i32) {
     if value < threshold {
-        (0, value)
+        (0, value - 0)
     } else {
-        (255, -(255 - value))
+        (255, value - 255)
     }
 }
 
@@ -157,28 +157,28 @@ fn image_diffuse_floyd(img: &mut image::DynamicImage) {
 
             if y % 2 == 0 {
                 if x + 1 < width {
-                    errors[y as usize][x as usize + 1] = error * 5 / 16;
+                    errors[y as usize][x as usize + 1] += error * 5 / 16;
                 }
                 if y + 1 < height {
                     if x >= 1 {
-                        errors[y as usize + 1][x as usize - 1] = error * 1 / 16;
+                        errors[y as usize + 1][x as usize - 1] += error * 1 / 16;
                     }
-                    errors[y as usize + 1][x as usize] = error * 7 / 16;
+                    errors[y as usize + 1][x as usize] += error * 7 / 16;
                     if x + 1 < width {
-                        errors[y as usize + 1][x as usize + 1] = error * 3 / 16;
+                        errors[y as usize + 1][x as usize + 1] += error * 3 / 16;
                     }
                 }
             } else {
                 if x >= 1 {
-                    errors[y as usize][x as usize - 1] = error * 5 / 16;
+                    errors[y as usize][x as usize - 1] += error * 5 / 16;
                 }
                 if y + 1 < height {
                     if x >= 1 {
-                        errors[y as usize + 1][x as usize - 1] = error * 3 / 16;
+                        errors[y as usize + 1][x as usize - 1] += error * 3 / 16;
                     }
-                    errors[y as usize + 1][x as usize] = error * 7 / 16;
+                    errors[y as usize + 1][x as usize] += error * 7 / 16;
                     if x + 1 < width {
-                        errors[y as usize + 1][x as usize + 1] = error * 1 / 16;
+                        errors[y as usize + 1][x as usize + 1] += error * 1 / 16;
                     }
                 }
             }
@@ -213,10 +213,10 @@ fn main() {
             print_usage();
             return
         }
-        let mut img = image::ImageBuffer::new(256, 256);
-        for x in 0..256 {
-            for y in 0..256 {
-                img.put_pixel(x, y, image::Rgba([x as u8, x as u8, x as u8, 255 as u8]));
+        let mut img = image::ImageBuffer::new(512, 512);
+        for x in 0..512 {
+            for y in 0..512 {
+                img.put_pixel(x, y, image::Rgba([(x / 2) as u8, (x / 2) as u8, (x / 2) as u8, 255 as u8]));
             }
         }
         let ref mut out = File::create(&Path::new(&args[2])).ok().expect("Can't open output file");
