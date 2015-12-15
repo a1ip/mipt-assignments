@@ -1,0 +1,140 @@
+\documentclass[10pt]{article}
+
+\usepackage[cp1251]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\usepackage{amssymb, amsmath, textcomp, tabularx, graphicx}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\let \eps \varepsilon
+
+\title{Задание 5}
+\author{Коновалов Андрей, 074}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|C|C|C|}
+  \hline
+  1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & $\Sigma$ \\
+  \hline
+  &&&&&&&&& \\
+  \hline
+\end{tabularx}
+
+\bigskip
+
+{\bf Задача 1}
+
+{\it (i)}
+Рекурсивно вычислим БПФ массивов A и B.
+
+\smallskip
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|C|C|}
+  \hline
+  & $w^0_8$ & $w^1_8$ & $w^2_8$ & $w^3_8$ & $w^4_8$ & $w^5_8$ & $w^6_8$ & $w^7_8$ \\
+  \hline
+  $A(w_8^0)$ & 6 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  \hline
+  $A(w_8^1)$ & 1 & 0 & 3 & 2 & 0 & 0 & 0 & 0\\
+  \hline
+  $A(w_8^2)$ & 1 & 0 & 0 & 0 & 3 & 0 & 2 & 0\\
+  \hline
+  $A(w_8^3)$ & 1 & 2 & 0 & 0 & 0 & 0 & 3 & 0\\
+  \hline
+  $A(w_8^4)$ & 4 & 0 & 0 & 0 & 2 & 0 & 0 & 0\\
+  \hline
+  $A(w_8^5)$ & 1 & 0 & 3 & 0 & 0 & 0 & 0 & 2\\
+  \hline
+  $A(w_8^6)$ & 1 & 0 & 2 & 0 & 3 & 0 & 0 & 0\\
+  \hline
+  $A(w_8^7)$ & 1 & 0 & 0 & 0 & 0 & 2 & 3 & 0\\
+  \hline
+\end{tabularx}
+
+\smallskip
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|C|C|}
+  \hline
+  & $w^0_8$ & $w^1_8$ & $w^2_8$ & $w^3_8$ & $w^4_8$ & $w^5_8$ & $w^6_8$ & $w^7_8$ \\
+  \hline
+  $B(w_8^0)$ & 8 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  \hline
+  $B(w_8^1)$ & 3 & 3 & 0 & 2 & 0 & 0 & 0 & 0\\
+  \hline
+  $B(w_8^2)$ & 3 & 0 & 3 & 0 & 0 & 0 & 2 & 0\\
+  \hline
+  $B(w_8^3)$ & 3 & 2 & 0 & 3 & 0 & 0 & 0 & 0\\
+  \hline
+  $B(w_8^4)$ & 3 & 0 & 0 & 0 & 5 & 0 & 0 & 0\\
+  \hline
+  $B(w_8^5)$ & 3 & 0 & 0 & 0 & 0 & 3 & 0 & 2\\
+  \hline
+  $B(w_8^6)$ & 3 & 0 & 2 & 0 & 0 & 0 & 3 & 0\\
+  \hline
+  $B(w_8^7)$ & 3 & 0 & 0 & 0 & 0 & 2 & 0 & 3\\
+  \hline
+\end{tabularx}
+
+\smallskip
+
+{\it (ii)}
+Для С получим
+
+\smallskip
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|C|C|}
+  \hline
+  & $w^0_8$ & $w^1_8$ & $w^2_8$ & $w^3_8$ & $w^4_8$ & $w^5_8$ & $w^6_8$ & $w^7_8$ \\
+  \hline
+  $C(w_8^0)$ & 48 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  \hline
+  $C(w_8^1)$ & 3 & 3 & 9 & 17 & 6 & 6 & 4 & 0\\
+  \hline
+  $C(w_8^2)$ & 9 & 0 & 9 & 0 & 13 & 0 & 17 & 0\\
+  \hline
+  $C(w_8^3)$ & 3 & 17 & 4 & 3 & 6 & 0 & 9 & 6\\
+  \hline
+  $C(w_8^4)$ & 22 & 0 & 0 & 0 & 26 & 0 & 0 & 0\\
+  \hline
+  $C(w_8^5)$ & 3 & 6 & 9 & 0 & 6 & 3 & 4 & 17\\
+  \hline
+  $C(w_8^6)$ & 9 & 0 & 17 & 0 & 13 & 0 & 9 & 0\\
+  \hline
+  $C(w_8^7)$ & 3 & 0 & 4 & 6 & 6 & 17 & 9 & 3\\
+  \hline
+\end{tabularx}
+
+\smallskip
+
+{\it (iii)}
+Умножив матрицу на полученный вектор, убедимся, что получается $[3, 3, 9, 17, 6, 6, 4, 0]$.
+
+\medskip
+
+{\bf Задача 3}
+
+{\it (i)}
+Убедимся, что $3$ - примитивный корень степени $8$ в простом поле $Z_{41}$.
+
+\smallskip
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|C|C|C|}
+  \hline
+  $n$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+  \hline
+  $3^n$ & 1 & 3 & 9 & 27 & 40 & 38 & 32 & 14 & 1\\
+  \hline
+\end{tabularx}
+
+\end{document}

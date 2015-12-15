@@ -1,0 +1,127 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="8744FABF-7713-66E5-A043-E479812FC7CB" directorySegmentName="seg_0" name="participation">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:10:42 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pkName>participation PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="chessplayer_id" id="45128EEB-0BE8-2E1E-9E06-C6F4A0093639">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:20:25 UTC</createdTime>
+<generatorID>92CF3D39-5FF3-7B38-397D-E75545E6E575</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<referedAttribute>504FA680-2443-5DA8-373A-44C334807723</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="tournament_id" id="C9606E9E-FD6B-0DCD-94D9-A454D674F447">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:20:07 UTC</createdTime>
+<generatorID>4B2A9C07-0F2E-A735-EB72-36167942E08B</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<referedAttribute>3D15E09E-BFBD-2E6A-48F8-AA65DED794D8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="rating_change" id="F5BA2CC5-0ABA-6B36-8718-D47E552940C6">
+<createdBy>root</createdBy>
+<createdTime>2012-02-21 10:51:15 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="place" id="404F0C1D-913F-9A2D-CC84-0FDE5D3D2691">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:12:12 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="E8218994-3ECF-03FE-F1D0-474321981392" name="participation PK">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:11:44 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C9606E9E-FD6B-0DCD-94D9-A454D674F447</attributeRef>
+<attributeRef>45128EEB-0BE8-2E1E-9E06-C6F4A0093639</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

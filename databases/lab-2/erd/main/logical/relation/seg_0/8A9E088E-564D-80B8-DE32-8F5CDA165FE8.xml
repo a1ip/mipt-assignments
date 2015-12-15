@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="country_chessplayer_rln" id="8A9E088E-564D-80B8-DE32-8F5CDA165FE8" directorySegmentName="seg_0">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:20:55 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="CCA81F8E-8B69-AC9C-0F83-0A0FD04A0019" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD225385-3F66-50C6-A228-8B021D0FA200</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>3486D74B-2854-B74B-5745-0B8AF0C94945</targetEntity>
+<transferable>true</transferable>
+</Relation>

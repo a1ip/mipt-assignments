@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="city_tournament_rln" id="9B33EDDE-2F82-457B-E1EC-5CD7AD416EAF" directorySegmentName="seg_0">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:19:52 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="CCA81F8E-8B69-AC9C-0F83-0A0FD04A0019" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>697685E9-1ABE-6E4D-A85E-DC9A2A724846</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>CBF9D19B-2BF3-5A3B-6B45-32D71ED38949</targetEntity>
+<transferable>true</transferable>
+</Relation>

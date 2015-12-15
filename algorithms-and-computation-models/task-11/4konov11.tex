@@ -1,0 +1,77 @@
+\documentclass[10pt]{article}
+
+\usepackage[cp1251]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\usepackage{amssymb, amsmath, textcomp, tabularx, graphicx}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\let \eps \varepsilon
+
+\title{Задание 11}
+\author{Коновалов Андрей, 074}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|}
+  \hline
+  1 & 2 & 3 & 4 & 5 & $\Sigma$ \\
+  \hline
+  &&&&& \\
+  \hline
+\end{tabularx}
+
+\bigskip
+
+{\bf Задача 1}
+
+{\it (i)}
+Утверждение не верно, например для 2-КНФ $(x \vee y) \wedge (x \vee \bar{y})$.
+Она выполняется при $x = y = 1$, но в графе, ей соответствующем, есть путь из $\bar{x}$ в $x$.
+
+\medskip
+
+{\bf Задача 2}
+
+{\it (i)}
+В случае константы $c \leq \frac{1}{3}$ утверждение очевидно.
+В случае константы $c \in (\frac{1}{3}, \frac{1}{2})$ нужно произвести $\log_c{\frac{1}{3}}$ проверок и выдать наиболее часто встречаемый из полученных ответ.
+Полиномиальность по среднему числу шагов сохранится.
+
+\medskip
+
+{\bf Задача 5}
+
+{\it (ii)}
+При выполнении алгоритма $n - 2$ раза выбирается новое ребро и каждый раз, вероятность того, что оно входит в минимальный разрез не превышает $\frac{2}{|V_i|}$.
+А значит вероятность, что ребро не входит в минимальный разрез не меньше, чем $1 - \frac{2}{|V_i|}$.
+
+Получаем, что вероятность того, что полученный в итоге набор ребер будет минимальным разрезом не меньше, чем
+$$
+\frac{n - 2}{n} \cdot \frac{n - 3}{n - 1} \cdot \frac{n - 4}{n - 2} \cdot \frac{n - 5}{n - 3} \cdot ... \cdot \frac{5 - 2}{5} \cdot \frac{4 - 2}{4} \cdot \frac{3 - 2}{3}
+$$
+
+После сокращения получим
+$$
+\frac{1}{n} \cdot \frac{1}{n - 1} \cdot \frac{4 - 2}{1} \cdot \frac{3 - 2}{1} = \frac{2}{n (n - 1)}
+$$
+
+\smallskip
+
+{\it (iii)}
+Для того, что бы это доказать, достаточно показать, что функция
+$$
+  f(n) = \left( 1 - \frac{2}{n (n - 1)} \right)^{n^2}
+$$
+строго возрастает на $(2, + \infty)$, а так же, что
+$$
+  \lim_{n \to \infty} f(n) = e^{-2} < 0.15 = 1 - 0.85
+$$
+
+\end{document}

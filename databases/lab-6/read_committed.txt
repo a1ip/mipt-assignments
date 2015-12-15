@@ -1,0 +1,105 @@
+Cеанс 1.                                                                                              Сеанс 2.
+ALTER SESSION SET ISOLATION_LEVEL = READ COMMITTED;                                                   ALTER SESSION SET ISOLATION_LEVEL = READ COMMITTED;
+Session altered.                                                                                      Session altered.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Потерянные изменения *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+   1 row updated.
+                                                                                                      2. UPDATE chessplayer SET initial_rating = 3000 WHERE chessplayer_id = 2010;
+                                                                                                         Сеанс блокируется.
+3. COMMIT;
+   Commit complete.
+                                                                                                         1 row updated.
+                                                                                                         Сеанс разблокируется.
+                                                                                                      4. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+                                                                                                         INITIAL_RATING
+                                                                                                         --------------
+	                                                                                                                 3000
+5. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             2000
+                                                                                                      6. COMMIT;
+                                                                                                         Commit complete;
+7. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             3000
+8. UPDATE chessplayer SET initial_rating = 1000 WHERE chessplayer_id = 2010;
+   1 row updated.
+9. COMMIT;
+   Commit complete.
+
+Вывод: потерянные изменения не допускаются.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   Грязное чтение   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             1000
+                                                                                                      2. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      3. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+                                                                                                         INITIAL_RATING
+                                                                                                         --------------
+                                                                                                                   2000
+4. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+	           1000
+                                                                                                      5. ROLLBACK;
+                                                                                                         Rollback complete.
+                                                                                                      6. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+                                                                                                         INITIAL_RATING
+                                                                                                         --------------
+                                                                                                                   1000
+
+Вывод: грязное чтение не допускается.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Неповторяющееся чтение *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             1000
+                                                                                                      2. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      3. COMMIT;
+                                                                                                         Commit complete.
+4. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             2000
+                                                                                                      5. UPDATE chessplayer SET initial_rating = 1000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      6. COMMIT;
+                                                                                                         Commit complete;
+
+Вывод: неповторяющееся чтение допускается.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Фантом *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. SELECT chessplayer_id FROM chessplayer WHERE initial_rating <= 1000;
+   CHESSPLAYER_ID
+   --------------
+	           2008
+	           2009
+	           2010
+
+                                                                                                      2. INSERT INTO chessplayer VALUES(2011, 'Potter', 'Harry', 999, 1003);
+                                                                                                         1 row created.
+                                                                                                      3. COMMIT;
+                                                                                                         Commit complete;
+4. SELECT chessplayer_id FROM chessplayer WHERE initial_rating <= 1000;
+   CHESSPLAYER_ID
+   --------------
+	           2008
+	           2009
+	           2010
+	           2011
+
+                                                                                                      5. DELETE FROM chessplayer WHERE chessplayer_id = 2011;
+                                                                                                         1 row deleted.
+                                                                                                      6. COMMIT;
+                                                                                                         Commit complete;
+
+Вывод: фантом допускается.
+

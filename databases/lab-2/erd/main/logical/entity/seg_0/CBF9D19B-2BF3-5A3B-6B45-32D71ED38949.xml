@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="CBF9D19B-2BF3-5A3B-6B45-32D71ED38949" directorySegmentName="seg_0" name="tournament">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:44:45 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pkName>tournament PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="tournament_id" id="3D15E09E-BFBD-2E6A-48F8-AA65DED794D8">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:44:59 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="name" id="4AE6B848-40B5-97DC-A872-22C4C1DA7CA7">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:45:16 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="start_date" id="6C07FD1B-73F7-7830-771B-0BCC71FAFA34">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:45:33 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="end_date" id="47B548F4-EBD6-3B4C-333C-A5047C065D1E">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:46:07 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="city_id" id="08E546E5-2348-3A9E-C777-7E07D895E5AB">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:19:52 UTC</createdTime>
+<generatorID>9B33EDDE-2F82-457B-E1EC-5CD7AD416EAF</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>CCE837D2-9329-3C57-DB23-3EB81A79046B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="C56ADBC5-2648-B6AA-A47F-E8A68978DE21" name="tournament PK">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 15:45:14 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>3D15E09E-BFBD-2E6A-48F8-AA65DED794D8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

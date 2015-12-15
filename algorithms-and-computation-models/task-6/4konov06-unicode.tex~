@@ -1,0 +1,64 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\usepackage{amssymb, amsmath, textcomp, tabularx, graphicx}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\let \eps \varepsilon
+
+\title{Задание 5}
+\author{Коновалов Андрей, 074}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|}
+  \hline
+  1 & 2 & 3 & 4 & 5 & $\Sigma$ \\
+  \hline
+  &&&&& \\
+  \hline
+\end{tabularx}
+
+\bigskip
+
+{\bf Задача 4}
+
+{\it (i)}
+Вычисления алгоритма Гаусса:
+$$
+  \begin{pmatrix}
+    1 & 0 & 0 & 5\\
+    8 & 1 & 0 & 25\\
+    4 & 8 & 1 & 125
+  \end{pmatrix}
+  \rightarrow
+  \begin{pmatrix}
+    1 & 0 & 0 & 5\\
+    0 & 1 & 0 & -15\\
+    0 & 8 & 1 & 5
+  \end{pmatrix}
+  \rightarrow
+  \begin{pmatrix}
+    1 & 0 & 0 & 5\\
+    0 & 1 & 0 & -15\\
+    0 & 0 & 1 & 125
+  \end{pmatrix}
+$$
+
+Поскольку знаменатели всех чисел, встречающихся при вычислении равны 1, то я их опустил.
+
+{\it (ii)}
+Проверим:
+$$
+  1 = det(D^{(3)}) = d_{33}^{(2)} = d_1 \cdot d_2 \cdot a_{33}^{(2)} = 1 \cdot 1 \cdot 1 = 1
+$$
+
+\end{document}

@@ -1,0 +1,83 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="1AA7C40D-9E11-06BD-6FBC-D03046E8E269" directorySegmentName="seg_0" name="title">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 19:37:09 UTC</createdTime>
+<generatorID>5F77CE50-7E3D-3821-484C-EE68ABA13B79</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<pkName>title PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="title_id" id="AB35A7F0-251C-E2B5-4E98-D994D68C3A90">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 19:37:09 UTC</createdTime>
+<generatorID>33447ECA-18DB-C634-EAA4-C42F65812C02</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="name" id="A27DC1DF-C111-5833-27F1-01C3B8209A3B">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 19:37:09 UTC</createdTime>
+<generatorID>F6D12F58-E1F5-F8B3-5894-ABEB458EDA4A</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0D7C1C39-5E12-8649-7EB9-205F614C710C" name="title PK">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 19:37:09 UTC</createdTime>
+<generatorID>15F5025F-3B53-8E5D-0862-A8F23839DB8B</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="AB35A7F0-251C-E2B5-4E98-D994D68C3A90"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

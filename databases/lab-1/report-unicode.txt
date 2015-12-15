@@ -1,0 +1,144 @@
+Работа в среде интерактивного SQL.
+
+1. Выбрать среднемесячную стоимость покупки клиентов из штата 'CA' (Калифорния).
+
+------------------------------------------- Command Entered --------------------------------------------
+SELECT TO_CHAR(sales_order.order_date, 'yyyy/mm') AS mnth, AVG(sales_order.total) AS avg_price
+    FROM sales_order, customer
+    WHERE sales_order.customer_id = customer.customer_id
+        AND customer.state = 'CA'
+        AND sales_order.order_date IS NOT NULL
+    GROUP BY TO_CHAR(sales_order.order_date, 'yyyy/mm')
+    ORDER BY 1;
+----------------------------------------------- Output -------------------------------------------------
+MNTH     AVG_PRICE
+------- ----------
+1990/05       51,4
+1990/06 307,333333
+1990/07    2104,55
+1990/08      102,5
+1991/01 2002,13333
+1991/02 12687,8333
+1991/03       2590
+
+7 rows selected.
+--------------------------------------------------------------------------------------------------------
+
+2. Вывести цены всех доступных продуктов в тот момент, когда первую покупку совершил 'WOMENS SPORTS'.
+
+------------------------------------------- Command Entered --------------------------------------------
+SELECT product.description, price.list_price
+    FROM product, price, (
+        SELECT MIN(sales_order.order_date) AS the_date
+            FROM sales_order, customer
+            WHERE customer.customer_id = sales_order.customer_id
+                AND customer.name = 'WOMENS SPORTS'
+    ) temp
+    WHERE product.product_id = price.product_id
+        AND price.start_date <= temp.the_date
+        AND (
+            price.end_date > temp.the_date OR
+            price.end_date IS NULL
+        );
+----------------------------------------------- Output -------------------------------------------------
+DESCRIPTION                    LIST_PRICE
+------------------------------ ----------
+ACE TENNIS NET                         58
+ACE TENNIS RACKET I                    35
+ACE TENNIS RACKET II                   45
+ACE TENNIS BALLS-3 PACK               2,8
+ACE TENNIS BALLS-6 PACK               5,6
+SP TENNIS RACKET                       24
+SP JUNIOR RACKET                     12,5
+RH: "GUIDE TO TENNIS"                 3,4
+SB ENERGY BAR-6 PACK                  2,4
+SB VITA SNACK-6 PACK                    4
+WIFF SOFTBALL BAT I                    25
+
+DESCRIPTION                    LIST_PRICE
+------------------------------ ----------
+WIFF SOFTBALL BAT II                   30
+WIFF SOFTBALL, SMALL                  4,2
+WIFF SOFTBALL, LARGE                  4,5
+WIFF SOFTBALL MITT (LH)                20
+WIFF SOFTBALL MITT (RH)                20
+RH: "GUIDE TO SOFTBALL"               3,4
+DUNK BASKETBALL INDOOR                 44
+DUNK BASKETBALL OUTDOOR                26
+DUNK BASKETBALL PROFESSIONAL         58,3
+DUNK HOOP                              39
+DUNK HOOP W/FIBERGLASS BOARD           50
+
+DESCRIPTION                    LIST_PRICE
+------------------------------ ----------
+DUNK NETS - RAINBOW                     5
+RH: "GUIDE TO BASKETBALL"             3,4
+YELLOW JERSEY BICYCLE HELMET           40
+YELLOW JERSEY BICYCLE GLOVES           15
+YELLOW JERSEY WATER BOTTLE              3
+YELLOW JERSEY BOTTLE CAGE               6
+YELLOW JERSEY FRAME PUMP                6
+YELLOW JERSEY SADDLE PACK              10
+RH: "GUIDE TO CYCLING"                3,4
+
+31 rows selected.
+--------------------------------------------------------------------------------------------------------
+
+3. Определить отдел, в котором среднее значение (зарплата + комиссионные) сотрудников минимальное.
+
+------------------------------------------- Command Entered --------------------------------------------
+WITH department_stats AS (
+    SELECT dep_income_mixed.dep_id as dep_id, SUM(dep_income_mixed.income) / SUM(dep_income_mixed.cnt) AS avg_income
+        FROM (
+            (SELECT employee.department_id AS dep_id, SUM(employee.salary + employee.commission) AS income, COUNT(*) AS cnt
+                FROM employee
+                WHERE employee.salary IS NOT NULL
+                    AND employee.commission IS NOT NULL
+                GROUP BY employee.department_id)
+            UNION
+            (SELECT employee.department_id AS dep_id, SUM(employee.salary) AS income, COUNT(*) AS cnt
+                FROM employee
+                WHERE employee.salary IS NOT NULL
+                    AND employee.commission IS NULL
+                GROUP BY employee.department_id)
+            UNION
+            (SELECT employee.department_id AS dep_id, SUM(employee.commission) AS income, COUNT(*) AS cnt
+                FROM employee
+                WHERE employee.salary IS NULL
+                    AND employee.commission IS NOT NULL
+                GROUP BY employee.department_id)
+        ) dep_income_mixed
+        GROUP BY dep_id
+)
+SELECT department_stats.dep_id, department_stats.avg_income
+    FROM department_stats
+    WHERE department_stats.avg_income = (
+        SELECT MIN(department_stats.avg_income)
+            FROM department_stats
+    );
+----------------------------------------------- Output -------------------------------------------------
+    DEP_ID AVG_INCOME
+---------- ----------
+        23       1760
+--------------------------------------------------------------------------------------------------------
+
+4. Определить, сколько в среднем платят менеджеру за одного подчиненого.
+
+------------------------------------------- Command Entered --------------------------------------------
+SELECT AVG(manager_avg_sal.avg_sal) AS avg_salary
+    FROM (
+        SELECT employee.employee_id AS id, employee.salary / manager_subs.subs_cnt AS avg_sal
+            FROM employee, (
+                SELECT employee.manager_id AS id, COUNT(*) AS subs_cnt
+                    FROM employee
+                    WHERE employee.manager_id IS NOT NULL
+                    GROUP BY employee.manager_id
+            ) manager_subs
+            WHERE employee.employee_id = manager_subs.id
+                AND employee.salary IS NOT NULL
+    ) manager_avg_sal;
+----------------------------------------------- Output -------------------------------------------------
+AVG_SALARY
+----------
+1643,57143
+--------------------------------------------------------------------------------------------------------

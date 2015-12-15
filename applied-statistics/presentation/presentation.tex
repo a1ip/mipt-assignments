@@ -1,0 +1,322 @@
+\documentclass[10pt,pdf]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx, tabularx, url}
+
+\usepackage{hyperref}
+\hypersetup{unicode=true}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\usetheme{Berlin}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+%\setbeamerfont{frametitle}{size=\large}
+\setbeamertemplate{navigation symbols}{}
+
+%\makeatother
+%\setbeamertemplate{footline}
+%{
+%  \leavevmode
+%  \hbox{%
+%    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1ex,right]{title in head/foot}%
+%      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+%    \end{beamercolorbox}
+%  }%
+%  \vskip0pt%
+%}
+%\makeatletter
+
+\title{Confidence intervals for $R^2$}
+\author{Andrey Konovalov}
+\institute{МIPT}
+\date{\today}
+
+\begin{document}
+
+% 1 =============================================================================
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% 2 =============================================================================
+
+\begin{frame}[t]{Coefficient of Determination}
+
+Given a data set $\{y_i, x_{1i}, ..., x_{ki}\}_{i=1}^n$
+
+\begin{align*}
+  TSS &= \sum\limits_{i=1}^n (y_i - \overline{y})^2 \;\;\; \text{Total Sum of Squares} \\
+  ESS &= \sum\limits_{i=1}^n (\hat{y_i} - \overline{y})^2 \;\;\; \text{Explained Sum of Squares} \\
+  RSS &= \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 \;\;\; \text{Residual Sum of Squares} \\
+\end{align*}
+
+Coefficient of Determination:
+\begin{align*}
+  R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
+\end{align*}
+
+\end{frame}
+
+% 3 =============================================================================
+
+\begin{frame}[t]{Coefficient of Determination (cont’d)}
+
+\begin{itemize}
+  \setlength{\itemsep}{15pt}
+  \item $R^2$ takes on values between 0 and 1.
+  \item The higher the $R^2$, the more useful the model.
+  %\item Essentially, $R^2$ tells us how much better we can do in predicting $y$ by using the model and computing $\hat{y}$ than by just using the mean $\overline{y}$ as a predictor.
+  \item Interpretation: $R^2$ tells us how much better we do by using the regression equation rather than just the mean $\overline{y}$ to predict $y$.
+  \item Despite the interpretation the value of $R^2$ doesn't mean much by itself.
+  \item The value of $R^2$ can be small, but your regression is perhaps still better than doing nothing.
+  \item $R^2$ might be interesting in some rare cases, like comparing two models on the same dataset.
+\end{itemize}
+
+\end{frame}
+
+% 4 =============================================================================
+
+\begin{frame}[t]{Pearson's correlation coefficient}
+
+For a population:
+\begin{gather*}
+  \rho_{x_1 x_2} = \frac{\cov(x_1, x_2)}{\sigma_1 \sigma_2} = \frac{E[(x_1 - \mu_1)(x_2 - \mu_2)]}{\sigma_1 \sigma_2} \\
+  \rho_{x_1 (x_2 ... x_k)} = 1 - \frac{|\hat{R}|}{\hat{R}_{11}}, \;\; \hat{R} = |\rho_{x_i x_j}|, \;\; \hat{R}_{11} \text{ is cofactor of } \rho_{x_1 x_1}
+\end{gather*}
+
+For a sample:
+\begin{gather*}
+  r_{x_1 x_2} = \frac{\sum\limits_{i=1}^n (x_{1i} - \overline{x_1}) (x_{2i} - \overline{x_2})}{\sum\limits_{i=1}^n (x_{1i} - \overline{x_1})^2 \sum\limits_{i=1}^n (x_{2i} - \overline{x_2})^2} \\
+  r_{x_1 (x_2 ... x_k)} = 1 - \frac{|\hat{R}|}{\hat{R}_{11}}, \;\; \hat{R} = |r_{x_i x_j}|, \;\; \hat{R}_{11} \text{ is cofactor of } r_{x_1 x_1}
+\end{gather*}
+
+\medskip
+
+Turns out $R^2 = r_{y (x_1 ... x_k)}^2$
+
+\end{frame}
+
+% 5 =============================================================================
+
+\begin{frame}[t]{Olkin and Finn models}
+
+\begin{itemize}
+  \setlength{\itemsep}{15pt}
+  \item Model A: Determining whether an additional variable provides an improvement in predicting the criterion: $\rho_{0 (1 2)}^2 - \rho_{0 1}^2$. This comparison shows whether an additional variable $x_2$ provides an improvement over $x_1$ alone in predicting $y = x_0$.
+  \item Model B: Deciding which of two variables adds more to the prediction of the criterion:  $\rho_{0 (1 2)}^2 - \rho_{0 (1 3)}^2$ This comparison shows whether the pair of predictors $x_1, x_2$ or the pair $x_1, x_3$ is more effective in predicting criterion $y = x_0$.
+  \item Model E: Deciding if a given set of predictors performs equally well in two separate populations: $\rho_I^2 - \rho_{II}^2$. This comparison shows whether a given set of predictors $(x_1, x_2, ... , x_k)$ performs equally well in two independent samples of data.
+\end{itemize}
+
+\end{frame}
+
+% 6 =============================================================================
+
+\begin{frame}[t]{General procedure form}
+
+\begin{itemize}
+  \item $r_A$ and $r_B$ - two sample correlations to be compared
+  \item $\rho_A$ and $\rho_B$ - their correspondng population values
+\end{itemize}
+
+\medskip
+
+The large sample distribution for the comparison:
+\begin{gather*}
+  [(r_A - r_B) - (\rho_A - \rho_B)] \sim N(0, \sigma_{\infty}^2) \\
+  \sigma_{\infty}^2 = \var(r_A) + \var(r_B) - 2 \cov(r_A, r_B)
+\end{gather*}
+
+\medskip
+
+A $100(1 - \alpha)$\% confidence interval:
+\begin{align*}
+  r_A - r_B \pm c \hat{\sigma}_{\infty}
+\end{align*}
+where
+\begin{itemize}
+  \item $c$ is the standard normal deviate $z_{\alpha / 2}$
+  \item $\hat{\sigma}_{\infty}$ is an estimate of $\sigma_{\infty}$ in which sample values replace population values
+\end{itemize}
+
+\end{frame}
+
+% 7 =============================================================================
+
+\begin{frame}[t]{General procedure form (cont’d)}
+
+The general form of variance of function of a set of correlations:
+\begin{gather*}
+  \var_{\infty}f(r_{12}, r_{13}, r_{23}) = \vec{a} \boldsymbol{\Phi} \vec{a}' \\
+  \boldsymbol{a} = \left( \frac{\partial f}{\partial r_{12}}, \frac{\partial f}{\partial r_{13}}, \frac{\partial f}{\partial r_{23}} \right) \\
+  \boldsymbol{\Phi} =
+  \left( \begin{array}{ccc}
+    \var(r_{12}) & \cov(r_{12}, r_{13}) & \cov(r_{12}, r_{23}) \\
+                 & \var(r_{13})         & \cov(r_{13}, r_{23}) \\
+                 &                      & \var(r_{23})
+  \end{array} \right)
+\end{gather*}
+
+\medskip
+
+The variances and covariances of correlations:
+\begin{align*}
+  \var(r_{ij}) &= ((1 - \rho_{ij}^2)^2) / n \\
+  \cov(r_{ij}, r_{jk}) &= ((2\rho_{jk} - \rho_{ij} \rho_{ik})(1 - \rho_{ij}^2 - \rho_{ik}^2 - \rho_{jk}^2) / 2 + \rho_{jk}^3) / n \\
+  \cov(r_{ij}, r_{kl}) &= [\rho_{ij} \rho_{kl} (\rho_{ik}^2 + \rho_{il}^2 + \rho_{jk}^2 + \rho_{jl}^2) / 2 + \rho_{ik} \rho_{jl} + \rho_{il} \rho_{jk} \\
+                       - (\rho_{ij}& \rho_{ik} \rho_{il} + \rho_{ji} \rho_{jk} \rho_{jl} + \rho_{ki} \rho_{kj} \rho_{kl} + \rho_{li} \rho_{lj} \rho_{lk})] / n
+\end{align*}
+
+\end{frame}
+
+% 8 =============================================================================
+
+\begin{frame}[t]{Data: A Study of Teenage Use of Abusable Substances}
+
+\begin{itemize}
+  \setlength{\itemsep}{15pt}
+  \item The data were collected as part of a study of the use of alcohol, cigarettes, and marijuana among urban school children.
+  \item An abusable substance score (USE, ranging from 0 to 3) was created by summing the number of substances (cigarettes, alcohol, or marijuana) that the individual had tried.
+  \item Perceived friends' use (FRIENDS, ranging from 0 to 12) was assessed by questions that asked students to indicate the number of friends, who were using alcohol, cigarettes, or marijuana.
+  \item Perceived family use (FAMILY) is the number of abusable substances, out of three, that were used by any member of the student's family.
+%  \item Classroom use (CLASS) is the average substance use reported by all members of the individual's class, excluding the student.
+\end{itemize}
+
+
+%\begin{tabularx}{\textwidth}{ |C|c c c c| }
+%  \hline
+%  & \multicolumn{4}{c|}{Variable} \\
+%  Dispersion matrices & 1 & 2 & 3 & 4 \\
+%  \hline
+%  Variance-covariance matrix & \multicolumn{4}{c|}{} \\
+%  \multicolumn{1}{|l|}{1. USE}     & 0.6261 & & & \\
+%  \multicolumn{1}{|l|}{2. FAMILY}  & 0.1381 & 0.7722 & & \\
+%  \multicolumn{1}{|l|}{3. FRIENDS} & 1.0897 & 0.4971 & 0.1038 & \\
+%  \multicolumn{1}{|l|}{4. CLASS}   & 0.0387 & 0.0003 & 0.1214 & 0.616 \\
+%  \hline
+%\end{tabularx}
+
+\end{frame}
+
+% 9 =============================================================================
+
+\begin{frame}[t]{Model A illustration}
+
+\begin{itemize}
+  \setlength{\itemsep}{15pt}
+  \item Determining whether an additional variable provides an improvement in predicting the criterion.
+  \item The variables are $x_0$ = USE, $x_1$ = FRIENDS, $x_2$ = FAMILY.
+  \item The procedure compares $\rho_{0(12)}^2$ with $\rho_{01}^2$ using estimates $r_{0(12)}^2$, $r_{01}^2$ and $\hat{\sigma}_{\infty}^2 = \var(r_{0(12)}^2 - r_{01}^2)$
+\end{itemize}
+
+\end{frame}
+
+% 10 =============================================================================
+
+\begin{frame}[t]{Model A illustration (cont’d)}
+
+Following the procedure,
+\begin{gather*}
+  \var(f(r_{01}, r_{02}, r_{12})) = \var(r_{0(12)}^2 - r_{01}^2) = \vec{a} \boldsymbol{\Phi} \vec{a}' \\
+  \\
+  \vec{a} = \left( \frac{\partial f}{\partial r_{01}}, \frac{\partial f}{\partial r_{02}}, \frac{\partial f}{\partial r_{12}} \right) = (a_1, a_2, a_3) \\
+  a_1 = \frac{2 \rho_{12}}{1 - \rho_{12}^2} (\rho_{01} \rho_{12} - \rho_{02}), \;\; a_2 = \frac{2}{1 - \rho_{12}^2} (\rho_{02} - \rho_{01} \rho_{12}) \\
+  a_3 = \frac{2}{(1 - \rho_{12}^2)^2} (\rho_{12} \rho_{01}^2 + \rho_{12} \rho_{02}^2 - \rho_{01} \rho_{02} - \rho_{01} \rho_{02} \rho_{12}^2) \\
+  \\
+  \boldsymbol{\Phi} =
+%  \left( \begin{array}{ccc}
+%    \phi_{11} & \phi_{12} & \phi_{13} \\
+%              & \phi_{22} & \phi_{23} \\
+%              &           & \phi_{33}
+%  \end{array} \right) =
+  \left( \begin{array}{ccc}
+    \var(r_{01}) & \cov(r_{01}, r_{02}) & \cov(r_{01}, r_{12}) \\
+                 & \var(r_{02})         & \cov(r_{02}, r_{12}) \\
+                 &                      & \var(r_{12})
+  \end{array} \right)
+\end{gather*}
+
+\end{frame}
+
+% 11 =============================================================================
+
+\begin{frame}[t]{Model A illustration (cont’d)}
+
+The sample correlation matrix (obtained from the data):
+\begin{gather*}
+  R =
+  \left( \begin{array}{ccc}
+    r_{00} & r_{01} & r_{02} \\
+           & r_{11} & r_{12} \\
+           &        & r_{22}
+  \end{array} \right) =
+  \left( \begin{array}{ccc}
+    1.000 & 0.433 & 0.199 \\
+          & 1.000 & 0.178 \\
+          &       & 1.000
+  \end{array} \right)
+\end{gather*}
+
+The estimate of $\rho_{01}^2$ is $r_{01}^2 = 0.188$. The estimate of $\rho_{0(12)}^2$ is
+\begin{gather*}
+  r_{0(12)}^2 = \frac{r_{01}^2 + r_{02}^2 - 2 r_{01} r_{02} r_{12}}{1 - r_{12}^2} = 0.203
+\end{gather*}
+
+The difference is $r_{0(12)}^2 - r_{01}^2$ = 0.015
+
+\end{frame}
+
+% 12 =============================================================================
+
+\begin{frame}[t]{Model A illustration (cont’d)}
+
+The sample values in $R$ are substitued in the expressions for $a_1$, $a_2$ and $a_3$:
+\begin{gather*}
+  \hat{\vec{a}} = (-0.447, 0.2511, -0.1032)
+\end{gather*}
+
+The variance-covariance matrix:
+\begin{gather*}
+  \hat{\boldsymbol{\Phi}} = \frac{1}{1.415}
+  \left( \begin{array}{ccc}
+    0.6598 & 0.1056 & 0.1265 \\
+           & 0.9226 & 0.3893 \\
+           &        & 0.9377
+  \end{array} \right)
+\end{gather*}
+
+Consequently,
+\begin{gather*}
+  \hat{\sigma}_{\infty} = \sqrt{\hat{\vec{a}} \hat{\boldsymbol{\Phi}} \hat{\vec{a}}'} = \sqrt{\frac{0.0481}{1.415}} = 0.0058 \\
+  r_{0(12)}^2 - r_{01}^2 \pm c \hat{\sigma}_{\infty} = 0.015 \pm (1.96)(0.0058) = [0.004, 0.027]
+\end{gather*}
+
+The family's use of abusable substances contributes to explaining use in school, above and beyond the effects of friends.
+
+\end{frame}
+
+% 13 =============================================================================
+
+\begin{frame}[t]{References}
+
+\begin{itemize}
+  \setlength{\itemsep}{15pt}
+  \item Olkin, I., \& Finn, J. D. (1995). Correlations Redux.
+  \item \url{java.dzone.com/articles/damn-r-squared}
+  \item \url{en.wikipedia.org/wiki/Coefficient_of_determination}
+  \item \url{en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient}
+\end{itemize}
+
+\end{frame}
+
+% =============================================================================
+
+\end{document}

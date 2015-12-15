@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.logical.LogicalDesign>
+   <object objectType="Entity" objectID="3486D74B-2854-B74B-5745-0B8AF0C94945" name="chessplayer" seqName="seg_0"/>
+   <object objectType="Entity" objectID="697685E9-1ABE-6E4D-A85E-DC9A2A724846" name="city" seqName="seg_0"/>
+   <object objectType="Entity" objectID="FD225385-3F66-50C6-A228-8B021D0FA200" name="country" seqName="seg_0"/>
+   <object objectType="Entity" objectID="366F469D-8C53-4787-4346-39D131680568" name="current_rating" seqName="seg_0"/>
+   <object objectType="Entity" objectID="88E8F042-0418-4B6F-3F44-05F5017E6620" name="current_title" seqName="seg_0"/>
+   <object objectType="Entity" objectID="8744FABF-7713-66E5-A043-E479812FC7CB" name="participation" seqName="seg_0"/>
+   <object objectType="Entity" objectID="5F77CE50-7E3D-3821-484C-EE68ABA13B79" name="title" seqName="seg_0"/>
+   <object objectType="Entity" objectID="CBF9D19B-2BF3-5A3B-6B45-32D71ED38949" name="tournament" seqName="seg_0"/>
+   <object objectType="Relation" objectID="92CF3D39-5FF3-7B38-397D-E75545E6E575" name="chessplayer_participation_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="9B33EDDE-2F82-457B-E1EC-5CD7AD416EAF" name="city_tournament_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="8A9E088E-564D-80B8-DE32-8F5CDA165FE8" name="country_chessplayer_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="81DF0D79-B7F8-04C5-007A-F1C8CF0AFC00" name="country_city_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="45253DFD-0D72-AE58-640C-D871B595EF8F" name="current_ttl_chessplayer_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="CB8B6CB2-10E9-F795-A710-5ACEF6130AFB" name="rating_chessplayer_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="0E65126D-044F-084A-F6E3-F97EAF046E41" name="title_current_ttl_rln" seqName="seg_0"/>
+   <object objectType="Relation" objectID="4B2A9C07-0F2E-A735-EB72-36167942E08B" name="tournament_participation_rln" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.logical.LogicalDesign>

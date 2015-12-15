@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="main" id="C1436A41-1442-7376-5798-35B8A3BF3D2A" version="3.5">
+<createdBy>xairy</createdBy>
+<createdTime>2012-02-20 15:29:56 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>C1436A41-1442-7376-5798-35B8A3BF3D2A</designId>
+</OSDM_Design>

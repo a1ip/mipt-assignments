@@ -1,0 +1,190 @@
+\documentclass[12pt,pdf]{beamer}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{url}
+
+\usetheme{Warsaw}
+%\usetheme{Madrid}
+%\usecolortheme{dove}
+%\usefonttheme{serif}
+
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\T}{^{\text{\tiny\sffamily\upshape\mdseries T}}}
+
+
+\title
+[ \hfill\insertframenumber\,/\,\inserttotalframenumber ]
+{\large Статистическое сравнение классификаторов}
+\author
+{А. Катруца}
+\institute {МФТИ}
+\date{\today}
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}[t]{Содержание}
+%	\large
+%    \tableofcontents
+%\end{frame}
+
+\section{Введение}
+
+\begin{frame}[t]{Постановка задачи}
+Есть много классификаторов, много выборок и функционал качества. Хотим понять какие классификаторы отличаются по эффективности. 
+
+Предположения: 
+\begin{itemize}
+\item результатам измерений можно верить
+\item оценка качества для каждого алгоритма была получена на одинаковых случайных взятых подвыборках
+\item схема сэмплирования неизвестна.
+\end{itemize}  
+%(на каждой выборке было проведено достаточно экспериментов) и оценка качества для каждого алгоритма была получена на одинаковых случайных взятых подвыборках. Предположения о схеме сэмплирования отсуствуют. 
+\end{frame}
+
+\begin{frame}[t]{Используемые функционалы качества}
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{table.eps}
+\end{figure}
+\end{frame}
+
+\section{Сравнение двух классификаторов}
+
+\begin{frame}[t]{Усреднение по выборкам}
+
+Недостатки:
+\begin{itemize}
+\item чувствительность к выбросам
+\item усреднение несравнимых результатов бессмысленно
+\end{itemize}
+
+Считается неэффективным методом сравнения. 
+\end{frame}
+
+\begin{frame}[t]{Парный t-test}
+Пусть $c^1_i$ и $c^2_i$ качества алгоритмов $a_1$ и $a_2$ на $i$-ой выборке и $d_i = c^1_i - c^2_i$. $N$ --- количество выборок.
+\begin{equation*}
+\begin{split}
+&H_0: a_1 \mathop{\sim}\limits^c a_2\\
+&H_1: \mathrm{not} \; H_0 
+\end{split}
+\end{equation*}
+$\overline{d} / \sigma^2_{\overline{d}} \sim \chi^2(N-1)$ при справедливости $H_0$. 
+
+В R функция: t.test(y1,y2,paired=TRUE).
+
+Проблемы:
+
+\begin{itemize}
+\item Соразмерность получаемых результатов. 
+\item Предположение нормальности разницы средних, трудно проверить.
+\item Чувствителен к выбросам. 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]{Критерий знаковых рангов Уилкоксона}
+
+В R: wilcox.test(y1, y2, paired=TRUE)
+
+Достоинства: 
+\begin{itemize}
+\item требует только качественную соразмерность (абсолютный разброс значений игнорируется)
+\item не предполагает нормальность
+\item менее чувствителен к выбросам
+\end{itemize}
+
+Используется при нарушении предположений t-test'а.
+\end{frame}
+
+\begin{frame}[t]{Количество выигрышей и проигрышей}
+\begin{itemize}
+\item Не предполагается нормальность или соразмерность, однако намного слабее предыдущего критерия.
+\item Нельзя отбрасывать какие-то измерения, ссылаясь на их случайный характер, тест не умеет определять, где случайный, а где значимый.
+\item Отбор только значимых выигрышей или проигрышей ведёт к ослаблению критерия.
+\end{itemize} 
+
+\end{frame}
+
+\section{Сравнение многих классификаторов}
+
+\begin{frame}[t]{ANOVA}
+Предположения:
+\begin{enumerate}
+\item Выборки из нормального распределения
+\item Cферичность --- равенство дисперсий
+\end{enumerate}
+При отвержении $H_0$ используются post-hoc tests:
+\begin{enumerate}
+\item Tukey test для сравнения всех со всеми
+\item Dunnet test для сравнения всех с эталоном.
+\end{enumerate} 
+
+
+Tukey: статистика --- аналогична t-test, но берётся максимальный разброс средних.  
+
+В R: TukeyHSD(fit).
+
+Dunnet test: статистика --- наибольшая по модулю  из t-статистик для каждого алгоритма.  
+
+В R: dunnett.test(Z = Z, select = rep(1, length(Z))), пакет asd. 
+\end{frame}
+
+\begin{frame}[t]{Критерий Фридмана}
+$ r_i^j$ --- ранг $j$-го алгоритма на $i$-ой выборке. $R_j = \frac{1}{N} \sum\limits_i r_i^j$ 
+Если $H_0$ верна, $R_j$ близки.
+
+$\chi_F^2 = \frac{12N}{k(k+1)}\left[\sum\limits_j R_j^2 - \frac{k(k+1)^2}{4} \right]$ 
+$F_F = \frac{(N-1)\chi_F^2}{N(k-1) - \chi_F^2} \sim F(k-1, (k-1)(N-1))$ 
+
+Используется при нарушении предположений ANOVA. 
+
+В R: friedman.test(x)
+
+При отклонении нулевой гипотезы используются post-hoc tests.
+
+\end{frame}
+
+\subsection{Post-hoc tests}
+\begin{frame}[t]{Критерий Неменьи}
+Сравниваем всех со всеми, аналогично Tukey test. Алгоритмы считаются различными, если средняя разность рангов превышает критическую разность: 
+\[
+CD = q_{\alpha}\sqrt{\frac{k(k+1)}{6N}},
+\]
+где $q_{\alpha}$ --- стьюдентизированная порядковая статистика, поделённая на $\sqrt{2}$ --- см. в таблицах. 
+\end{frame}
+
+\begin{frame}[t]{Критерий Бонферрони-Данна}
+В случае сравнения с эталоном используются варианты критериев из множественной проверки гипотез. Статистики те же, что и в критерии Неменьи, но критическая разность считается для $\frac{\alpha}{k-1}$.
+
+Post-hoc test маломощные, критерий Фридмана может показать существенное различие, а они нет.
+ 
+\end{frame}
+
+\subsection{Пример}
+\begin{frame}[t]{Пример}
+Индексы m и cf показывают настройку параметров: минимального числа элементов в листе и доверительного интервала. Значения по умолчанию: m = 0, cf = 0.25.
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{table_example.eps}
+\end{figure}
+\end{frame}
+
+\begin{frame}[t]{Пример}
+Применим критерий Фридмана:
+\[
+\chi_F = 9.28 \qquad F_F = 3.69
+\]
+Критическое значение для $F(3, 39)$ при $\alpha = 0.05$ равно 2.85. Следовательно, $H_0$ отклоняем.   
+
+Дальнейшее применение критерия Неменьи показывает, что настройка m и m+cf улучшает качество алгоритма, а об эффективности настройки cf никакого вывода сделать нельзя.
+\end{frame}
+\end{document}

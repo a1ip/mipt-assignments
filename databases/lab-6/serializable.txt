@@ -1,0 +1,90 @@
+Cеанс 1.                                                                                              Сеанс 2.
+ALTER SESSION SET ISOLATION_LEVEL = SERIALIZABLE;                                                     ALTER SESSION SET ISOLATION_LEVEL = SERIALIZABLE;
+Session altered.                                                                                      Session altered.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Неповторяющееся чтение *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             1000
+                                                                                                      2. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      3. COMMIT;
+                                                                                                         Commit complete.
+4. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             1000
+5. COMMIT;
+   Commit complete.
+6. SELECT initial_rating FROM chessplayer WHERE chessplayer_id = 2010;
+   INITIAL_RATING
+   --------------
+             2000
+                                                                                                      7. UPDATE chessplayer SET initial_rating = 1000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      8. COMMIT;
+                                                                                                         Commit complete;
+
+Вывод: неповторяющееся чтение не допускается.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Фантом *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. SELECT chessplayer_id FROM chessplayer WHERE initial_rating <= 1000;
+   CHESSPLAYER_ID
+   --------------
+	           2008
+	           2009
+	           2010
+
+                                                                                                      2. INSERT INTO chessplayer VALUES(2011, 'Potter', 'Harry', 999, 1003);
+                                                                                                         1 row created.
+                                                                                                      3. COMMIT;
+                                                                                                         Commit complete;
+4. SELECT chessplayer_id FROM chessplayer WHERE initial_rating <= 1000;
+   CHESSPLAYER_ID
+   --------------
+	           2008
+	           2009
+	           2010
+5. COMMIT;
+   Commit complete.
+6. SELECT chessplayer_id FROM chessplayer WHERE initial_rating <= 1000;
+   CHESSPLAYER_ID
+   --------------
+	           2008
+	           2009
+	           2010
+	           2011
+
+                                                                                                      7. DELETE FROM chessplayer WHERE chessplayer_id = 2011;
+                                                                                                         1 row deleted.
+                                                                                                      8. COMMIT;
+                                                                                                         Commit complete;
+
+Вывод: фантом не допускается.
+
+*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * Тупик *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
+1. UPDATE chessplayer SET initial_rating = 1000 WHERE chessplayer_id = 2009;
+   1 row updated.
+                                                                                                      2. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+3. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+   Сеанс блокируется.
+                                                                                                      4. UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010;
+                                                                                                         1 row updated.
+                                                                                                      5. COMMIT;
+                                                                                                         Commit complete.
+   UPDATE chessplayer SET initial_rating = 2000 WHERE chessplayer_id = 2010
+   *
+   ERROR at line 1:
+   ORA-08177: can't serialize access for this transaction
+6. COMMIT;
+   Commit complete.
+
+7. UPDATE chessplayer SET initial_rating = 900 WHERE chessplayer_id = 2009;
+   1 row updated.
+8. UPDATE chessplayer SET initial_rating = 1000 WHERE chessplayer_id = 2010;
+   1 row updated.
+9. COMMIT;
+   Commit complete;
+

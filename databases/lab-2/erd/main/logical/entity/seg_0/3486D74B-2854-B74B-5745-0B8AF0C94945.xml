@@ -1,0 +1,135 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="3486D74B-2854-B74B-5745-0B8AF0C94945" directorySegmentName="seg_0" name="chessplayer">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:13:06 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pkName>chessplayer PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="chessplayer_id" id="504FA680-2443-5DA8-373A-44C334807723">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:13:23 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="name" id="7E131AE6-5A42-3431-0C85-BB617F2FF6A9">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:13:42 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="lastname" id="02AC16A0-4F3F-B746-E51D-70DE2CFB6F4F">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:14:11 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="initial_rating" id="9B14A72B-6687-FEFB-2710-90B049D14CF2">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:14:37 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="country_id" id="B56DB22B-1399-D9CB-5345-6AE5470EA1FD">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:20:55 UTC</createdTime>
+<generatorID>8A9E088E-564D-80B8-DE32-8F5CDA165FE8</generatorID>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>ECC34006-13FB-4F65-E1ED-D403BE8EC26C</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="3F15B427-DF66-AF0B-EEE5-D2F9583F75CA" name="chessplayer PK">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:13:38 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="4FC16B78-6CF1-AC26-AF10-A5C7A09595CA" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>504FA680-2443-5DA8-373A-44C334807723</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

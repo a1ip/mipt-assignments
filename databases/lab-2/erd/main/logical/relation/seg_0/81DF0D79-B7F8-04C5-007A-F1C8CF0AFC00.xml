@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="country_city_rln" id="81DF0D79-B7F8-04C5-007A-F1C8CF0AFC00" directorySegmentName="seg_0">
+<createdBy>root</createdBy>
+<createdTime>2012-02-20 16:19:20 UTC</createdTime>
+<ownerDesignName>main</ownerDesignName>
+<engineerTo>
+<item key="FF7C880B-EBD9-9581-AD8E-F0264836AB81" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD225385-3F66-50C6-A228-8B021D0FA200</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>697685E9-1ABE-6E4D-A85E-DC9A2A724846</targetEntity>
+<transferable>true</transferable>
+</Relation>

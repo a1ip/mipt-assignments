@@ -1,0 +1,253 @@
+\documentclass[10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\usepackage{amssymb, amsmath, textcomp, tabularx, graphicx}
+\usepackage{indentfirst}
+\usepackage{listings}
+
+\newtheorem{definition}{Определение}
+
+\title{Проект 1.1}
+\author{Андрей Коновалов, 073}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Markov chains}
+
+\subsection{Exercise 1.1}
+
+Воспользуемся следующим определением марковской цепи с непрерывным временем.
+
+\begin{definition}
+  Однородная марковская цепь с непрерывным временем с интенсивностями переходов $\lambda(x, y)$ - это случайный процесс $X(t)$, который принимает значения из конечного или счетного пространства состояний $S$, и удовлетворяет
+  \begin{gather*}
+    P\{X(t + h) = x \; | \; X(t) = x\} = 1 - \lambda(x) h + o(h), \\
+    P\{X(t + h) = y \; | \; X(t) = x\} = \lambda(x, y) h + o(h),
+  \end{gather*}
+  где $y \neq x$ и $\lambda(x) = \sum\limits_{y \neq x} \lambda(x, y)$.
+\end{definition}
+
+Процесс Пуассона $N$ с интенсивностью $\lambda > 0$ удовлетворяет
+\begin{gather*}
+  P\{N(t + h) = j \; | \; N(t) = j\} = 1 - \lambda h + o(h), \\
+  P\{N(t + h) = j + 1 \; | \; N(t) = j\} = \lambda h + o(h).
+\end{gather*}
+
+А значит, по определению, процесс Пуассона является марковской цепью с непрерывным временем и пространством состояний $S = \{0, 1, 2, \ldots \}$.
+
+\section{Walks on graphs}
+
+\subsection{Exercise 2.1}
+
+По сути, нам нужно показать эквивалентность следующих утверждений:
+\begin{equation} \begin{aligned}
+  \exists \; \pi'(x): \;\; \sum\limits_{x} \pi'(x) = 1, \\
+  \forall y: \; \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y)
+\end{aligned} \end{equation}
+и
+\begin{equation} \begin{aligned}
+  \exists \; \pi(x): \forall y: \; \sum\limits_{x} \pi(x) p(x, y) = \pi(y),  \\
+  \sum\limits_{x, y} c(x, y) < 1, \;\; c(x, y) = \pi(x) p(x, y),
+\end{aligned} \end{equation}
+причем
+\begin{equation} \begin{aligned}
+  \pi(x) \sim \pi'(x),
+\end{aligned} \end{equation}
+предполагая, что соответствующий графу марковский процесс обратим.
+
+\medskip
+
+\subsubsection{(1) $\Rightarrow$ (2)}
+
+Сначала покажем (1) $\Rightarrow$ (2).
+\begin{gather*}
+  (1) \; \Rightarrow \\
+  \forall y: \; \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y) \; \Rightarrow \\
+  \sum\limits_{y} \sum\limits_{x} \pi'(x) p(x, y) = \sum\limits_{y} \pi'(y) = 1 \; \Rightarrow \\
+  \sum\limits_{x, y} \frac{\pi'(x)}{2} p(x, y) = \frac{1}{2}.
+\end{gather*}
+
+Определим $\pi(x) = \frac{\pi'(x)}{2}$, тогда
+\begin{gather*}
+  \sum\limits_{x, y} \frac{\pi'(x)}{2} p(x, y) = \sum\limits_{x, y} \pi(x) p(x, y) = \sum\limits_{x, y} c(x, y) = \frac{1}{2} < 1.
+\end{gather*}
+
+А также
+\begin{gather*}
+  \forall y: \; \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y) \; \Rightarrow \; \forall y: \; \sum\limits_{x} \pi(x) p(x, y) = \pi(y).
+\end{gather*}
+
+И, значит,
+\begin{gather*}
+  \exists \; \pi(x) = \frac{\pi'(x)}{2}: \forall y: \; \sum\limits_{x} \pi(x) p(x, y) = \pi(y),  \\
+  \sum\limits_{x, y} c(x, y) < 1, \;\; c(x, y) = \pi(x) p(x, y),
+\end{gather*}
+
+\medskip
+
+\subsubsection{(2) $\Rightarrow$ (1)}
+
+Теперь покажем (2) $\Rightarrow$ (1).
+\begin{gather*}
+  (2) \; \Rightarrow \\
+  \sum\limits_{x, y} c(x, y) = K < 1 < \infty.
+\end{gather*}
+
+Определим
+\begin{gather*}
+  \pi'(x) = \frac{\sum\limits_{y} c(x, y)}{\sum\limits_{x, y} c(x, y)} = \frac{\sum\limits_{y} c(x, y)}{K}.
+\end{gather*}
+
+Тогда
+\begin{gather*}
+  \sum\limits_{x} \pi'(x) = \sum\limits_{x} \frac{\sum\limits_{y} c(x, y)}{\sum\limits_{x, y} c(x, y)} = \frac{\sum\limits_{x, y} c(x, y)}{\sum\limits_{x, y} c(x, y)} = \frac{K}{K} = 1.
+\end{gather*}
+
+Заметим, что
+\begin{gather*}
+  \pi'(x) = \frac{\sum\limits_{y} c(x, y)}{K} = \frac{\sum\limits_{y} \pi(y) p(y, x)}{K} = \frac{\pi(x)}{K}.
+\end{gather*}
+
+Осталось показать, что
+\begin{gather*}
+  \forall y: \; \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y).
+\end{gather*}
+
+Заметим, что $\forall y$
+\begin{gather*}
+  \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y) \; \Leftarrow \\
+  \sum\limits_{x} \frac{\sum\limits_{z} c(x, z)}{K} p(x, y) = \frac{\sum\limits_{x} c(y, x)}{K} \; \Leftarrow \\
+  \sum\limits_{x} \sum\limits_{z} c(x, z) p(x, y) = \sum\limits_{x} c(y, x) \; \Leftarrow \\
+  \forall x: \; \sum\limits_{z} c(x, z) p(x, y) = c(y, x) \; \Leftarrow \\
+  \forall x: \; p(x, y) \sum\limits_{z} c(x, z) = c(y, x) \; \Leftarrow \\
+  \forall x: \; p(x, y) \sum\limits_{z} c(x, z) = \pi(x) p(x, y) \; \Leftarrow \\
+  \forall x: \; \sum\limits_{z} c(x, z) = \pi(x) \; \Leftarrow \\
+  \forall x: \; \sum\limits_{z} \pi(z) p(z, x) = \pi(x) \; \Leftarrow \\
+  (2).
+\end{gather*}
+
+И, значит,
+\begin{gather*}
+  \exists \; \pi'(x) = \frac{\pi(x)}{K}: \;\; \sum\limits_{x} \pi'(x) = 1, \\
+  \forall y: \; \sum\limits_{x} \pi'(x) p(x, y) = \pi'(y).
+\end{gather*}
+
+\section{Queues}
+
+\subsection{Exercise 3.1}
+
+Опишем марковскую очередь с $\rho = \frac{\lambda}{\mu}$, где $\lambda$ - скорость появления новых клиентов, а $\mu$ - скорость обслуживания.
+
+Каждое состояние марковского процесса будет описываться текущим количеством клиентов в очереди $k$.
+Интенсивности переходов
+\begin{gather*}
+  q(k, k + 1) = \lambda, \;\;\; k = 0, 1, \ldots , \\
+  q(k, k - 1) = \mu, \;\;\; k = 1, 2, \ldots .
+\end{gather*}
+
+\subsubsection{Случай $\rho < 1$}
+
+В соответствии с упражнением 3.2, стационарное распределение вероятностей в этом случае
+\begin{gather*}
+  \pi(k) = (1 - \rho) \rho^k, \;\;\; k = 0, 1, \ldots .
+\end{gather*}
+
+Убедимся, что такая цепь является возвратной:
+\begin{gather*}
+  \pi(k) q(k, k + 1) = (1 - \rho) \rho^k \lambda, \\
+  \pi(k + 1) q(k + 1, k) = (1 - \rho) \rho^{k + 1} \mu = (1 - \rho) \rho^k \lambda.
+\end{gather*}
+
+\subsubsection{Случай $\rho > 1$}
+
+В соответствии с упражнением 3.2, стационарная мера в этом случае
+\begin{gather*}
+  \pi(k) = \rho^k, \;\;\; k = 0, 1, \ldots .
+\end{gather*}
+
+Убедимся, что такая цепь является возвратной:
+\begin{gather*}
+  \pi(k) q(k, k + 1) = \rho^k \lambda, \\
+  \pi(k + 1) q(k + 1, k) = \rho^{k + 1} \mu = \rho^k \lambda.
+\end{gather*}
+
+\subsubsection{Случай $\rho = 1$}
+
+В соответствии с упражнением 3.2, стационарная мера в этом случае
+\begin{gather*}
+  \pi(k) = 1, \;\;\; k = 0, 1, \ldots .
+\end{gather*}
+
+Убедимся, что такая цепь является возвратной:
+\begin{gather*}
+  \pi(k) q(k, k + 1) = \lambda, \\
+  \pi(k + 1) q(k + 1, k) = \mu = \lambda.
+\end{gather*}
+
+В каждом из случаев цепь получилась возвратной, а каждая возвратная марковская цепь соответствует некоторому случайному блужданию на графе.
+
+\subsection{Exercise 3.2}
+
+Интенсивности переходов между состояниями определяются, как
+\begin{gather*}
+  q(k, k + 1) = \lambda, \;\;\; k = 0, 1, \ldots , \\
+  q(k, k - 1) = \mu, \;\;\; k = 1, 2, \ldots .
+\end{gather*}
+
+Соответственно, матрица интенсивностей переходов определяется, как
+\begin{gather*}
+  Q = \left( \begin{matrix}
+    -\lambda & \lambda          &                  &         & \\
+    \mu      & -(\lambda + \mu) & \lambda          &         & \\
+             & \mu              & -(\lambda + \mu) & \lambda & \\
+             &                  &                  & \ddots  &  
+ \end{matrix} \right).
+\end{gather*}
+
+Будем искать стационарное распределение в соответствии с основным кинетическим уравнением
+\begin{gather*}
+  \frac{d \pi}{d t} = \pi Q.
+\end{gather*}
+
+Расписав его построчно для нашей матрицы Q, получим
+\begin{gather*}
+  -\lambda \pi(0) + \mu \pi(1) = 0, \\
+  \lambda \pi (k - 1) - (\lambda + \mu) \pi(k) + \mu \pi(k + 1) = 0, \;\;\; k \geq 1.
+\end{gather*}
+
+Можно легко убедиться, что эта система уравнений эквивалентна
+\begin{gather*}
+  \lambda \pi(k) = \mu \pi(k + 1), \;\;\; k \geq 0.
+\end{gather*}
+
+Таким образом, получаем
+\begin{gather*}
+  \pi(k) = \left( \frac{\lambda}{\mu} \right)^k \pi(0) = \rho^k \pi(0), \;\;\; k \geq 0.
+\end{gather*}
+
+Для случая $\rho < 1$ можно отнормировать
+\begin{gather*}
+  \sum\limits_k \pi(k) = \sum\limits_k \rho^k \pi(0) = \frac{1}{1 - \rho} \pi(0) = 1 \; \Rightarrow  \; \pi(0) = 1 - \rho
+\end{gather*}
+и получить стационарное рапределение вероятностей
+\begin{gather*}
+  \pi(k) = (1 - \rho) \rho^k, \;\;\; k \geq 0.
+\end{gather*}
+
+Для случая $\rho > 1$ можно взять $\pi(0) = 1$ и получить стационарную меру
+\begin{gather*}
+  \pi(k) = \rho^k, \;\;\; k \geq 0.
+\end{gather*}
+
+Так же и для случая $\rho = 1$ можно взять $\pi(0) = 1$ и получить стационарную меру
+\begin{gather*}
+  \pi(k) = 1, \;\;\; k \geq 0.
+\end{gather*}
+
+\end{document}

@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="0DBD84A0-C7E5-6012-BFC8-D5B480EF1412" name="chessplayer" seqName="seg_0"/>
+   <object objectType="Table" objectID="31E89FC9-8A3A-D095-981B-3E893F5F9F98" name="city" seqName="seg_0"/>
+   <object objectType="Table" objectID="327345FF-FC61-3122-65A2-7A089F0257B6" name="country" seqName="seg_0"/>
+   <object objectType="Table" objectID="D7B62863-DCC2-FD38-ACDE-968DBD3DE946" name="obtainment" seqName="seg_0"/>
+   <object objectType="Table" objectID="3EC30E26-1641-A761-31B6-81671FCED1BD" name="participation" seqName="seg_0"/>
+   <object objectType="Table" objectID="039D6D4E-1E8E-9E0E-062C-C20E944BC931" name="title" seqName="seg_0"/>
+   <object objectType="Table" objectID="1C67D1FA-E0AB-0734-79BB-693854CCA468" name="tournament" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="63887F93-85AF-CEEB-3806-CB422332F4F0" name="chessplayer_obtainment_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="8FC9A524-95FF-F0FD-8440-95D4EFE1610D" name="chessplayer_participation_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="9ACD0E1D-F037-1DEE-C0F9-103CB8DF46D6" name="city_tournament_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="56BAD97C-A982-CBC7-BC35-F550BD841118" name="country_chessplayer_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="CA16297E-BE7E-E5A1-B7AB-1A5AD8B84157" name="country_city_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="5D8260EB-B648-03A5-6233-71C3E5F28189" name="title_chessplayer_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="54B12B79-42BF-B70D-8855-65AA747AB65C" name="title_obtainment_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="9C2A38E9-4959-6037-2B26-0BFB33D51942" name="tournament_obtainment_rln" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="4ECBF422-10A7-0B84-C808-4B5989E94FC9" name="tournament_participation_rln" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

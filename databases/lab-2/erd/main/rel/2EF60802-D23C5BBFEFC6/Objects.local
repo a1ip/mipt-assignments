@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="E3E45B73-84C8-DD7A-9B3F-76F82E29A1B3" name="chessplayer" seqName="seg_0"/>
+   <object objectType="Table" objectID="E9E234C5-FB6F-655E-D442-AE3FAE13E92E" name="city" seqName="seg_0"/>
+   <object objectType="Table" objectID="62FBB3A4-85E7-3C4E-0DFA-017C6AC8F340" name="country" seqName="seg_0"/>
+   <object objectType="Table" objectID="991D7E02-FEE3-BC33-E2D3-D1225D2BD177" name="participation" seqName="seg_0"/>
+   <object objectType="Table" objectID="AD078448-570D-37F3-7930-F01C359F4872" name="title" seqName="seg_0"/>
+   <object objectType="Table" objectID="816F5C54-88D8-9C39-178F-A030FC9A0212" name="tournament" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="56847157-4C62-F310-0D85-6F46A033093F" name="chessplayer_participation_relation" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="89C490D9-05C4-9297-59FE-DC9E3A820E5D" name="city_tournament_relashion" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="21E911C2-5772-E847-12E1-5B5A0E3F584B" name="country_chessplayer_relation" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="17457A23-C08F-6CC5-FD75-83F012F3806B" name="country_city_relation" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="77B5951A-CD01-054A-15C3-E485C93A568B" name="title_chessplayer_relation" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="03E14132-2AF0-2677-DC45-2FDF6BEB01A0" name="tournament_participation_relation" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>
